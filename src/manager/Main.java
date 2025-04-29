@@ -1,3 +1,10 @@
+package manager;
+
+import task.Epic;
+import task.Subtask;
+import task.Task;
+import task.TaskStatus;
+
 public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
@@ -42,10 +49,11 @@ public class Main {
 
 
         System.out.println("Список всех задач: " + taskManager.getTasks());
+        System.out.println("Список всех эпиков: " + taskManager.getEpics());
+        System.out.println("Список всех подзадач: " + taskManager.getSubtasks());
 
 
-        subtask1.delete(taskManager); // Используем полиморфизм для удаления подзадачи
-        System.out.println("Список всех задач после удаления подзадачи " + subtask1.getId() + ": " +
-                taskManager.getTasks());
+        subtask1.delete(taskManager);
+        System.out.println("Список всех задач после удаления подзадачи " + subtask1.getId() + ": " + taskManager.getTasks());
     }
 }

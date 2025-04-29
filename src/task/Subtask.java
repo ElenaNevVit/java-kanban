@@ -1,9 +1,6 @@
 package task;
 
-import task.TaskStatus;
-import task.TaskType;
-
-class Subtask extends Task {
+public class Subtask extends Task {
     private int epicId;
 
     public Subtask(int id, String title, String description, TaskStatus status, int epicId) {
@@ -21,12 +18,12 @@ class Subtask extends Task {
     }
 
     @Override
-    public void delete(TaskManager taskManager) {
-        Epic epic = (Epic) taskManager.tasks.get(this.epicId);
+    public void delete(manager.TaskManager taskManager) {
+        Epic epic = (Epic) taskManager.getTaskById(this.epicId);
         if (epic != null) {
             epic.removeSubtaskId(this.getId());
         }
-        taskManager.tasks.remove(this.id);
+        taskManager.removeTask(this.id);
     }
 
     @Override

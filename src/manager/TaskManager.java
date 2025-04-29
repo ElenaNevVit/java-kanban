@@ -1,9 +1,17 @@
+package manager;
+
+import task.Epic;
+import task.Subtask;
+import task.Task;
+import task.TaskStatus;
+import task.TaskType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class TaskManager {
-    private int idCounter = 0;
+public class TaskManager {
+    int idCounter = 0;
     HashMap<Integer, Task> tasks = new HashMap<>();
 
     public Task getTaskById(int id) {
@@ -46,8 +54,33 @@ class TaskManager {
     }
 
     public List<Task> getTasks() {
-        List<Task> tasksList = new ArrayList<>(tasks.values());
-        return tasksList;
+        List<Task> taskList = new ArrayList<>();
+        for (Task task : tasks.values()) {
+            if (task.getType() == TaskType.TASK) {
+                taskList.add(task);
+            }
+        }
+        return taskList;
+    }
+
+    public List<Epic> getEpics() {
+        List<Epic> epicList = new ArrayList<>();
+        for (Task task : tasks.values()) {
+            if (task.getType() == TaskType.EPIC) {
+                epicList.add((Epic) task);
+            }
+        }
+        return epicList;
+    }
+
+    public List<Subtask> getSubtasks() {
+        List<Subtask> subtaskList = new ArrayList<>();
+        for (Task task : tasks.values()) {
+            if (task.getType() == TaskType.SUBTASK) {
+                subtaskList.add((Subtask) task);
+            }
+        }
+        return subtaskList;
     }
 
     public void deleteAllTasks() {
@@ -77,11 +110,11 @@ class TaskManager {
     public List<Subtask> getAllSubtasksOfEpic(int epicId) {
         List<Subtask> subtasks = new ArrayList<>();
         Task task = tasks.get(epicId);
-        if (task instanceof Epic) {
+        if (task != null && task.getType() == TaskType.EPIC) {
             Epic epic = (Epic) task;
             for (Integer subtaskId : epic.getSubtaskIds()) {
                 Task subtask = tasks.get(subtaskId);
-                if (subtask instanceof Subtask) {
+                if (subtask != null && subtask.getType() == TaskType.SUBTASK) {
                     subtasks.add((Subtask) subtask);
                 }
             }
@@ -91,7 +124,7 @@ class TaskManager {
 
     private void updateEpicStatus(int epicId) {
         Task task = tasks.get(epicId);
-        if (!(task instanceof Epic)) {
+        if (task == null || task.getType() != TaskType.EPIC) {
             return;
         }
 
@@ -120,6 +153,10 @@ class TaskManager {
         } else {
             epic.setStatus(TaskStatus.IN_PROGRESS);
         }
+    }
+
+    public void removeTask(int id) {
+        tasks.remove(id);
     }
 
     private int generateId() {

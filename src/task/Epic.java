@@ -1,12 +1,9 @@
 package task;
 
-import task.TaskStatus;
-import task.TaskType;
-
 import java.util.ArrayList;
 import java.util.List;
 
-class Epic extends Task {
+public class Epic extends Task {
     private List<Integer> subtaskIds;
 
     public Epic(int id, String title, String description) {
@@ -32,15 +29,15 @@ class Epic extends Task {
     }
 
     @Override
-    public void delete(TaskManager taskManager) {
+    public void delete(manager.TaskManager taskManager) {
         // Удаляем все подзадачи эпика
         for (Integer subtaskId : subtaskIds) {
-            Task subtask = taskManager.tasks.get(subtaskId);
+            Task subtask = taskManager.getTaskById(subtaskId);
             if (subtask != null) {
                 subtask.delete(taskManager);
             }
         }
-        taskManager.tasks.remove(this.id);
+        taskManager.removeTask(this.id);
     }
 
     @Override

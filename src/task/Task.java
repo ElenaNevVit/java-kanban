@@ -1,11 +1,8 @@
 package task;
 
-import manager.TaskManager;
-import task.TaskStatus;
-
 import java.util.Objects;
 
-class Task {
+public class Task {
     protected int id;
     private String title;
     private String description;
@@ -42,8 +39,8 @@ class Task {
         return TaskType.TASK;
     }
 
-    public void delete(TaskManager taskManager) {
-        taskManager.tasks.remove(this.id);
+    public void delete(manager.TaskManager taskManager) {
+        taskManager.removeTask(this.id);
     }
 
     @Override
