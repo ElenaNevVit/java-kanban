@@ -1,7 +1,12 @@
+package task;
+
+import manager.TaskManager;
+import task.TaskStatus;
+
 import java.util.Objects;
 
 class Task {
-    private int id;
+    protected int id;
     private String title;
     private String description;
     private TaskStatus status;
@@ -27,6 +32,18 @@ class Task {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
+
+    public void delete(TaskManager taskManager) {
+        taskManager.tasks.remove(this.id);
     }
 
     @Override

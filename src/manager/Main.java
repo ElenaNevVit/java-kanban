@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
 
-        Epic epic1 = new Epic(0, "Переезд", "Подготовка к переезду в новый офис", TaskStatus.NEW);
+        Epic epic1 = new Epic(0, "Переезд", "Подготовка к переезду в новый офис");
         epic1 = (Epic) taskManager.createTask(epic1);
         System.out.println("Создан эпик: " + epic1);
 
@@ -26,7 +26,7 @@ public class Main {
         taskManager.updateTask(updatedSubtask1);
         System.out.println("Статус подзадачи " + updatedSubtask1.getId() + " изменен на DONE");
 
-      
+
         System.out.println("Статус эпика " + epic1.getId() + " после изменения статуса подзадачи: " +
                 taskManager.getTaskById(epic1.getId()).getStatus());
 
@@ -41,11 +41,11 @@ public class Main {
                 taskManager.getTaskById(epic1.getId()).getStatus());
 
 
-        System.out.println("Список всех задач: " + taskManager.getAllTasks());
+        System.out.println("Список всех задач: " + taskManager.getTasks());
 
 
-        taskManager.deleteTaskById(subtask1.getId());
+        subtask1.delete(taskManager); // Используем полиморфизм для удаления подзадачи
         System.out.println("Список всех задач после удаления подзадачи " + subtask1.getId() + ": " +
-                taskManager.getAllTasks());
+                taskManager.getTasks());
     }
 }
