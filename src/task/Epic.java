@@ -1,5 +1,7 @@
 package task;
 
+import manager.TaskManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,24 +22,12 @@ public class Epic extends Task {
     }
 
     public void removeSubtaskId(int subtaskId) {
-        this.subtaskIds.remove(Integer.valueOf(subtaskId)); // Remove by value
+        this.subtaskIds.remove(Integer.valueOf(subtaskId));
     }
 
     @Override
     public TaskType getType() {
         return TaskType.EPIC;
-    }
-
-    @Override
-    public void delete(manager.TaskManager taskManager) {
-        // Удаляем все подзадачи эпика
-        for (Integer subtaskId : subtaskIds) {
-            Task subtask = taskManager.getTaskById(subtaskId);
-            if (subtask != null) {
-                subtask.delete(taskManager);
-            }
-        }
-        taskManager.removeTask(this.id);
     }
 
     @Override

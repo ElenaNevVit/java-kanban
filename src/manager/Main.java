@@ -53,7 +53,7 @@ public class Main {
         System.out.println("Список всех подзадач: " + taskManager.getSubtasks());
 
 
-        subtask1.delete(taskManager);
+        taskManager.deleteSubtaskById(subtask1.getId());
         System.out.println("Список всех задач после удаления подзадачи " + subtask1.getId() + ": " + taskManager.getTasks());
     }
 }
