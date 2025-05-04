@@ -1,7 +1,5 @@
 package task;
 
-import manager.TaskManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +16,12 @@ public class Epic extends Task {
     }
 
     public void addSubtaskId(int subtaskId) {
-        this.subtaskIds.add(subtaskId);
+        if (this.getId() != subtaskId) {
+            this.subtaskIds.add(subtaskId);
+        }
     }
 
     public void removeSubtaskId(int subtaskId) {
         this.subtaskIds.remove(Integer.valueOf(subtaskId));
-    }
-
-    @Override
-    public TaskType getType() {
-        return TaskType.EPIC;
-    }
-
-    @Override
-    public String toString() {
-        return "Epic{" +
-                "subtaskIds=" + subtaskIds +
-                "} " + super.toString();
     }
 }

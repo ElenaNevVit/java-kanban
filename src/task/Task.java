@@ -1,20 +1,29 @@
 package task;
 
-import manager.TaskManager;
-
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Task {
-    protected int id;
+
+    private int id;
     private String title;
     private String description;
     private TaskStatus status;
+
+    private static final AtomicInteger nextId = new AtomicInteger(0);
 
     public Task(int id, String title, String description, TaskStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
+    }
+
+    public Task(String title, String description, TaskStatus status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.id = generateId();
     }
 
     public int getId() {
@@ -37,18 +46,8 @@ public class Task {
         this.status = status;
     }
 
-    public TaskType getType() {
-        return TaskType.TASK;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -62,5 +61,19 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    private int generateId() {
+        return nextId.incrementAndGet();
     }
 }
