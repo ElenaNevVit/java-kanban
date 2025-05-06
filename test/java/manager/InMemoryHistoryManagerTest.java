@@ -52,12 +52,13 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void historyShouldStorePreviousVersionOfTask(){
+    void historyShouldStorePreviousVersionOfTask() {
         historyManager.add(task1);
-        task1.setStatus(TaskStatus.DONE);
-        historyManager.add(task1);
+        Task task2 = new Task(task1.getId(), task1.getTitle(), task1.getDescription(), TaskStatus.DONE);
+        historyManager.add(task2);
         List<Task> history = historyManager.getHistory();
 
-        assertEquals(task1.getStatus(), history.get(1).getStatus(), "task1.getStatus() должен быть равен history.get(1).getStatus()");
+        assertEquals(TaskStatus.NEW, history.get(0).getStatus(), "Первая задача должна иметь статус NEW");
+        assertEquals(TaskStatus.DONE, history.get(1).getStatus(), "Вторая задача должна иметь статус DONE");
     }
 }

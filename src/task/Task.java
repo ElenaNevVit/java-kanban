@@ -6,9 +6,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Task {
 
     private int id;
-    private String title;
-    private String description;
-    private TaskStatus status;
+    private final String title;
+    private final String description;
+    private final TaskStatus status;
 
     private static final AtomicInteger nextId = new AtomicInteger(0);
 
@@ -40,10 +40,6 @@ public class Task {
 
     public TaskStatus getStatus() {
         return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
     }
 
     public void setId(int id) {
